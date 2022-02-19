@@ -10,7 +10,8 @@ userCollection = db.Users
 def lambda_handler(event, context):
 
     if event['body']:
-        let body = JSON.parse(event['body'])
+        body = JSON.parse(event['body'])
+        
         if body['userId']:
             userId = body['userId']
         else:
