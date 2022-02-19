@@ -9,18 +9,18 @@ userCollection = db.Users
 
 def lambda_handler(event, context):
 
-    if event.body
-        let body = JSON.parse(event.body)
-        if body.userId:
-            userId = body.userId
+    if event['body']
+        let body = JSON.parse(event['body'])
+        if body['userId']:
+            userId = body['userId']
         else:
             return {
                 'statusCode': 401,
                 'body': json.dumps('User cannot be blank')
             }
 
-        if body.password:
-            password = body.password
+        if body['password']:
+            password = body['password']
         else:
             return {
                 'statusCode': 401,
