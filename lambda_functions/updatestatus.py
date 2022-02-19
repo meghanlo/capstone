@@ -16,6 +16,9 @@ def lambda_handler(event, context):
         else:
             boxId = '1'
 
+        #if any of the parameters are None, grab the last value from the DB
+        lastBoxHistory = boxStatusCollection.find_one({'boxId':boxId},  sort=[( 'lastUpdated', pymongo.DESCENDING )])
+
         if 'isMainDoorLocked' in body:
             isMainDoorLocked = body['isMainDoorLocked']
         else:
@@ -48,9 +51,7 @@ def lambda_handler(event, context):
             }
 
     now = datetime.now()
-    #if any of the parameters are None, grab the last value from the DB
-    lastBoxHistory = boxStatusCollection.find_one({'boxId':boxId},  sort=[( 'lastUpdated', pymongo.DESCENDING )])
-
+    
     boxStatusCollection.insert_one({
         "lastUpdated": now, 
         "boxId": boxId,
