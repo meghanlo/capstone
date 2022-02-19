@@ -8,9 +8,6 @@ db = client.TestData
 boxStatusCollection = db.BoxStatus
 
 def lambda_handler(event, context):
-    #if any of the parameters are None, grab the last value from the DB
-    lastBoxHistory = boxStatusCollection.find_one({'boxId':boxId},  sort=[( 'lastUpdated', pymongo.DESCENDING )])
-
     if event['body']:
         body = json.loads(event['body'])
         
@@ -51,7 +48,9 @@ def lambda_handler(event, context):
             }
 
     now = datetime.now()
-    
+    #if any of the parameters are None, grab the last value from the DB
+    lastBoxHistory = boxStatusCollection.find_one({'boxId':boxId},  sort=[( 'lastUpdated', pymongo.DESCENDING )])
+
     boxStatusCollection.insert_one({
         "lastUpdated": now, 
         "boxId": boxId,
