@@ -12,7 +12,7 @@ def lambda_handler(event, context):
     print(event)
 
     if event['body']:
-        body = json.loads(event['body'])
+        body = event['body']
         
         if body['userId']:
             userId = body['userId']
