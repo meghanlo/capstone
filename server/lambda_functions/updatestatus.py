@@ -44,6 +44,11 @@ def lambda_handler(event, context):
             isPackageInside = body['isPackageInside']
         else:
             isPackageInside = lastBoxHistory['isPackageInside']
+        
+        if 'shouldDoorOpen' in body:
+            shouldDoorOpen = body['shouldDoorOpen']
+        else:
+            shouldDoorOpen = lastBoxHistory['shouldDoorOpen']
 
     else:
         return {
@@ -61,6 +66,7 @@ def lambda_handler(event, context):
         "isAccessDoorLocked": str_to_bool(isAccessDoorLocked),
         "isAccessDoorOpen": str_to_bool(isAccessDoorOpen), 
         "isPackageInside": isPackageInside,
+        "shouldDoorOpen": shouldDoorOpen,
     })
 
     return {
